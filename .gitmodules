@@ -16,3 +16,6 @@
 [submodule "ITS_BRD_sensorik"]
 	path = ITS_BRD_sensorik
 	url = https://github.com/ITS-BRD/ITS_BRD_sensorik.git
+[submodule "bin/ITS_BRD_sensorik"]
+	path = bin/ITS_BRD_sensorik
+	url = https://github.com/ITS-BRD/ITS_BRD_sensorik.git
