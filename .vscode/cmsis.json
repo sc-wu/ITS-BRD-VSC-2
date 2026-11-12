@@ -1,0 +1,9 @@
+{
+    "targetSet": {
+        "Programs/ADC_Project/ADC_Project": {
+            "activeTargetType": "ITSboard"
+        }
+    },
+    "activeSolution": "../Programs/ADC_Project/ADC_Project.csolution.yml",
+    "activeTarget": "ITSboard"
+}
