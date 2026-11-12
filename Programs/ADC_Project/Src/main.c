@@ -14,6 +14,7 @@
  ******************************************************************************
  */
 
+#include <stdint.h>
 #include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include "init.h"
@@ -26,10 +27,20 @@
 #include "error.h"
 #include "adc.h"
 
+#define VOLT_5 5
 #define DELAY 200
 #define REG_M -0.03003571
 #define REG_B 2.15857143
 // [-0.03003571  2.15857143] [23.96649485  0.06695876]
+
+double korrektur(uint16_t dig) {
+	double spannung_v = (double)((double)dig / (double)0xFFF) * VOLT_5;
+
+	double distanz_cm = (REG_M * spannung_v) + REG_B;
+
+	return distanz_cm;
+}
+
 /**
   * @brief  Main program
   * @param  None
@@ -38,7 +49,6 @@
 int main(void){
 	
 	int adcValue = 0;
-	int measurementNumber = 0;
 
 	initITSboard();                 // Initialisierung des ITS Boards
 	GUI_init(DEFAULT_BRIGHTNESS);   // Initialisierung des LCD Boards mit Touch
@@ -57,7 +67,7 @@ int main(void){
 	
 	for(;;){
 		adcValue = readADCValue(3);
-		printf("ADC: %d: %d\n", measurementNumber, adcValue);
+		printf("ADC: %d: %d\n", (uint32_t)korrektur(adcValue), adcValue);
 		HAL_Delay(DELAY);
 	}
 }
